@@ -15,7 +15,8 @@ public class EnemyGuy : MonoBehaviour
   private Animator anim;
 
   void Start() {
-    rig = GetComponent<Rigidbody2D>();    
+    rig = GetComponent<Rigidbody2D>();  
+    anim = GetComponent<Animator>();  
   }
 
   void FixedUpdate() {
@@ -35,7 +36,12 @@ public class EnemyGuy : MonoBehaviour
     }
   }
 
-  public void Damage() {
-    
+  public void Damage(int dmg) {
+    health -= dmg;
+    anim.SetTrigger("hit");
+
+    if(health <= 0) {
+      Destroy(gameObject);
+    }
   }
 }

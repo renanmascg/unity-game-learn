@@ -8,6 +8,7 @@ public class Arrow : MonoBehaviour
   private Rigidbody2D _rig;
   public float speed;
   public bool isRight;
+  public int damage;
 
   void Start()
   {
@@ -20,6 +21,14 @@ public class Arrow : MonoBehaviour
       _rig.velocity = Vector2.right * speed;
     } else {
       _rig.velocity = Vector2.left * speed;
+    }
+  }
+
+  private void OnTriggerEnter2D(Collider2D other) {
+    if (other.gameObject.tag == "Enemy") {
+      Debug.Log("Acertou algo");
+      other.GetComponent<EnemyGuy>().Damage(damage);
+      Destroy(gameObject);
     }
   }
 }

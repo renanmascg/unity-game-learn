@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-
+  public int health = 3;
   public float speed;
   public float jumpForce;
   public GameObject arrow;
@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
   void Start() {
     rig = GetComponent<Rigidbody2D>();
     anim = GetComponent<Animator>();
+
+    GameController.instance.UpdateLives(health);
   }
 
   void Update() {
@@ -100,10 +102,17 @@ public class Player : MonoBehaviour
     }
   }
   
-
   private void OnCollisionEnter2D(Collision2D other) {
     if (other.gameObject.layer == 6) {
       isJumping = false;
+    }
+  }
+
+  public void Damage(int dmg) {
+    health -= dmg;
+
+    if (health <= 0) {
+      // game over
     }
   }
 }
